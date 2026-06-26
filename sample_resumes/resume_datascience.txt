@@ -1,0 +1,52 @@
+MICHAEL RODRIGUEZ
+Data Scientist
+Email: m.rodriguez@email.com | Phone: +1-555-0789 | GitHub: github.com/mrodriguez
+Location: Austin, TX
+
+PROFESSIONAL SUMMARY
+Data Scientist with 3+ years of experience in machine learning, NLP, and data analysis.
+Skilled in building and deploying ML models using Python, TensorFlow, and PyTorch.
+Strong background in statistical analysis, feature engineering, and data visualization.
+
+TECHNICAL SKILLS
+Languages: Python, R, SQL, Java
+ML/AI: Machine Learning, Deep Learning, NLP, Natural Language Processing, Computer Vision
+Frameworks: TensorFlow, PyTorch, Keras, Scikit-learn, Hugging Face, LangChain
+Data: Pandas, NumPy, SciPy, Matplotlib, Seaborn, Plotly
+Big Data: Apache Spark, Hadoop, Kafka, Airflow
+Databases: PostgreSQL, MongoDB, Elasticsearch, BigQuery, Snowflake
+Cloud: AWS (SageMaker, S3, Lambda), GCP (Vertex AI, BigQuery)
+Tools: Jupyter Notebook, Git, Docker, MLflow, DVC
+Other: Data Analysis, Data Visualization, Feature Engineering, Model Deployment, A/B Testing, Agile
+
+WORK EXPERIENCE
+
+Data Scientist | AI Solutions Corp. | Jun 2022 – Present
+- Developed NLP models using Hugging Face Transformers for sentiment analysis (92% accuracy)
+- Built recommendation engine using collaborative filtering serving 1M+ users
+- Deployed ML models using Docker and AWS SageMaker with automated retraining pipelines
+- Created interactive dashboards using Plotly for executive stakeholder reporting
+- Implemented RAG-based chatbot using LangChain and OpenAI GPT models
+
+ML Engineer | DataInsights Inc. | Jan 2021 – May 2022
+- Built image classification models using PyTorch and TensorFlow achieving 95% precision
+- Designed and maintained ETL pipelines using Apache Spark and Airflow
+- Performed feature engineering and model training on datasets with 50M+ records
+- Deployed models as REST APIs using FastAPI and Docker
+- Conducted A/B tests for model performance evaluation
+
+Data Analyst | Analytics Pro | Jul 2019 – Dec 2020
+- Analyzed large datasets using Pandas, NumPy, and SQL
+- Created data visualizations and reports using Matplotlib and Seaborn
+- Built predictive models using Scikit-learn for customer churn prediction
+- Managed data in PostgreSQL and MongoDB databases
+- Automated reporting workflows using Python and Jupyter Notebooks
+
+EDUCATION
+M.S. Data Science | University of Texas at Austin | 2019
+B.S. Statistics | University of Texas at Austin | 2017
+
+CERTIFICATIONS
+- AWS Machine Learning Specialty
+- TensorFlow Developer Certificate
+- Google Data Analytics Professional Certificate

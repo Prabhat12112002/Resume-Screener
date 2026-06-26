@@ -1,0 +1,47 @@
+JOHN DOE
+Senior Backend Developer
+Email: john.doe@email.com | Phone: +1-555-0123 | LinkedIn: linkedin.com/in/johndoe
+Location: San Francisco, CA
+
+PROFESSIONAL SUMMARY
+Experienced backend developer with 5+ years of expertise in building scalable APIs and microservices.
+Strong proficiency in Python, Django, and FastAPI with deep knowledge of relational databases and cloud infrastructure.
+Passionate about writing clean, maintainable code and implementing robust CI/CD pipelines.
+
+TECHNICAL SKILLS
+Languages: Python, JavaScript, SQL, Bash, Go
+Frameworks: Django, FastAPI, Flask, Express.js
+Databases: PostgreSQL, MySQL, Redis, MongoDB
+Cloud & DevOps: AWS (EC2, S3, Lambda, ECS), Docker, Kubernetes, Terraform
+Tools: Git, GitHub Actions, Jenkins, Nginx, Celery, RabbitMQ
+Testing: Pytest, Unit Testing, Integration Testing
+Other: REST API, GraphQL, Microservices, CI/CD, Linux, Agile, Scrum
+
+WORK EXPERIENCE
+
+Senior Backend Developer | TechCorp Inc. | Jan 2022 – Present
+- Designed and built RESTful APIs using FastAPI serving 50K+ daily requests
+- Migrated monolithic Django application to microservices architecture on Kubernetes
+- Implemented caching layer with Redis reducing API response time by 60%
+- Set up CI/CD pipelines using GitHub Actions and Docker for automated deployments
+- Managed PostgreSQL databases with complex query optimization
+
+Backend Developer | DataFlow Systems | Mar 2019 – Dec 2021
+- Developed backend services using Django and Flask for data processing platform
+- Built ETL pipelines processing 10M+ records daily using Celery and RabbitMQ
+- Deployed services on AWS using EC2, S3, and Lambda
+- Wrote comprehensive unit and integration tests achieving 90% code coverage
+- Collaborated with frontend team on GraphQL API implementation
+
+Junior Developer | StartupHub | Jun 2017 – Feb 2019
+- Built REST APIs using Flask and Express.js
+- Managed MySQL and MongoDB databases
+- Participated in Agile/Scrum development processes
+- Implemented authentication using JWT and OAuth2
+
+EDUCATION
+B.S. Computer Science | University of California, Berkeley | 2017
+
+CERTIFICATIONS
+- AWS Solutions Architect Associate
+- Docker Certified Associate

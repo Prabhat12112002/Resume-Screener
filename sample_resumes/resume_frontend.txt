@@ -1,0 +1,48 @@
+SARAH CHEN
+Frontend Developer
+Email: sarah.chen@email.com | Phone: +1-555-0456 | Portfolio: sarahchen.dev
+Location: New York, NY
+
+PROFESSIONAL SUMMARY
+Creative frontend developer with 4 years of experience building responsive, accessible web applications.
+Expert in React ecosystem with strong TypeScript skills and an eye for modern UI/UX design.
+Experienced in component-driven development, state management, and performance optimization.
+
+TECHNICAL SKILLS
+Languages: JavaScript, TypeScript, HTML, CSS, Sass, Python
+Frameworks: React, Next.js, Vue.js, Angular
+State Management: Redux, Zustand, React Query
+Styling: Tailwind CSS, Material UI, Chakra UI, Styled Components
+Build Tools: Webpack, Vite, Babel, ESLint, Prettier
+Testing: Jest, Cypress, React Testing Library, Playwright
+Tools: Git, GitHub, Figma, Storybook, Vercel, Netlify
+Other: REST API, GraphQL, Responsive Design, Accessibility (WCAG), Agile
+
+WORK EXPERIENCE
+
+Senior Frontend Developer | DesignTech Co. | Mar 2022 – Present
+- Lead frontend development of SaaS dashboard using React and TypeScript
+- Implemented design system with Storybook serving 40+ reusable components
+- Migrated legacy jQuery codebase to modern React with Next.js
+- Achieved 95+ Lighthouse performance scores through code splitting and lazy loading
+- Mentored 3 junior developers on React best practices and TypeScript patterns
+
+Frontend Developer | WebFlow Agency | Jan 2020 – Feb 2022
+- Built responsive web applications using React and Vue.js for 20+ clients
+- Developed custom component libraries with Tailwind CSS and Material UI
+- Integrated REST and GraphQL APIs with frontend applications
+- Implemented E2E testing with Cypress reducing production bugs by 40%
+- Collaborated with designers using Figma for pixel-perfect implementations
+
+Junior Frontend Developer | AppStart Inc. | Aug 2018 – Dec 2019
+- Developed interactive UIs using React and Redux
+- Built responsive layouts with CSS Grid, Flexbox, and Bootstrap
+- Participated in code reviews and Agile sprint planning
+- Implemented form validation and user authentication flows
+
+EDUCATION
+B.A. Computer Science | New York University | 2018
+
+CERTIFICATIONS
+- Meta Frontend Developer Professional Certificate
+- Google UX Design Certificate
