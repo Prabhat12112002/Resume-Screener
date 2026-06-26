@@ -1,4 +1,5 @@
 # 🤖 Smart Resume Screening System (AI-Powered)
+<img width="1058" height="614" alt="Screenshot 2026-06-26 143739" src="https://github.com/user-attachments/assets/9145c518-968b-4977-8257-c7bf5da0eccf" />
 
 <p align="center">
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white" alt="FastAPI" />
