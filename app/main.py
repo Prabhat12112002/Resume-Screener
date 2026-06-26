@@ -130,6 +130,7 @@ async def screen_resumes(
             matched_skills = []
             missing_skills = []
             explanation = ""
+            engine_used = "local"
 
             # Attempt screening with Groq (RAG)
             groq_result = None
@@ -144,6 +145,7 @@ async def screen_resumes(
                 matched_skills = groq_result["matched_skills"]
                 missing_skills = groq_result["missing_skills"]
                 explanation = groq_result["explanation"]
+                engine_used = "groq"
             else:
                 # Fallback to local scoring engine
                 resume_parsed = parse_document(text)
@@ -152,6 +154,7 @@ async def screen_resumes(
                 matched_skills = local_result["matched_skills"]
                 missing_skills = local_result["missing_skills"]
                 explanation = local_result["explanation"]
+                engine_used = "local"
 
             # Standardize output schemas
             results.append(
@@ -161,6 +164,7 @@ async def screen_resumes(
                     matched_skills=matched_skills,
                     missing_skills=missing_skills,
                     explanation=explanation,
+                    engine=engine_used,
                 )
             )
 

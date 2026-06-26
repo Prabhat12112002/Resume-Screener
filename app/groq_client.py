@@ -62,7 +62,7 @@ def screen_with_groq(jd_text: str, rag_context: str) -> dict | None:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            model="llama3-8b-8192",  # Fast, cost-efficient, and supports JSON mode
+            model="llama-3.1-8b-instant",  # Updated to active model (llama3-8b-8192 is decommissioned)
             response_format={"type": "json_object"},
             temperature=0.2,         # Low temperature for highly objective, structured output
             max_tokens=500

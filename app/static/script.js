@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const missingTags = res.missing_skills.map(s => `<span class="tag missing">${s}</span>`).join("");
 
             // Determine if Groq matched or local fallback
-            const isGroq = res.explanation.includes("match") || res.explanation.length > 5;
+            const isGroq = res.engine === "groq";
             const engineTag = isGroq ? 
                 `<span class="engine-tag groq">Groq AI</span>` : 
                 `<span class="engine-tag local">Local Match</span>`;

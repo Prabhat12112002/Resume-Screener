@@ -77,6 +77,10 @@ class ResumeResult(BaseModel):
         ...,
         description="Brief 2-3 line explanation of the match assessment",
     )
+    engine: str = Field(
+        ...,
+        description="The matching engine used for this resume: 'groq' or 'local'",
+    )
 
 
 class ScreeningResponse(BaseModel):
