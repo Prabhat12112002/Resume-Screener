@@ -4,56 +4,61 @@
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white" alt="FastAPI" />
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white" alt="Python" />
   <img src="https://img.shields.io/badge/Uvicorn-490A3D?style=for-the-badge&logo=Uvicorn&logoColor=white" alt="Uvicorn" />
+  <img src="https://img.shields.io/badge/Groq-F59E0B?style=for-the-badge" alt="Groq" />
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License" />
 </p>
 
-An advanced, offline-first, AI-powered resume screening system built with **FastAPI**. It leverages a high-performance **hybrid matching algorithm** (incorporating a custom TF-IDF vectorizer + skill recall analyzer) to automatically parse, compare, and score candidates against job descriptions.
+An advanced, offline-first, AI-powered resume screening system built with **FastAPI**. It leverages a high-performance **RAG (Retrieval-Augmented Generation) pipeline** combining a custom local TF-IDF vector index and **Groq Llama 3** to automatically parse PDF resumes, match them against job descriptions, and deliver structured scores, missing skills, and dynamic recruiter feedback.
 
 ---
 
 ## 🌟 Key Features
 
-*   **Offline Hybrid Engine**: Blends contextual **TF-IDF Cosine Similarity** (40%) with explicit **Skill Recall Matching** (60%) to score resumes accurately without relying on heavy ML libraries or external network API calls.
-*   **Highly Curated Skills Database**: Houses **170+ tech and soft skills** categorized across 13 domains (Frontend, Backend, Cloud, DevOps, ML/AI, Security, Mobile, etc.) for robust two-pass parsing.
-*   **Precise Parser**: Avoids false positives (e.g., matching the programming language "R" inside the word "React") by utilizing strict word-boundary checks and multi-word substring priority searches.
-*   **Structured AI Explanations**: Generates readable 2–3 line summaries for every candidate details match percentages, detected experience, and overall alignment.
-*   **Developer Friendly**: Offers fully validated Pydantic v2 schemas and auto-generated Swagger interactive documentation at `/docs`.
+*   **Premium Web UI**: Beautiful dark mode and glassmorphism interface served directly from the FastAPI root (`/`), featuring an interactive file dropzone and animated matching results.
+*   **pdfplumber Parser**: Extracts text cleanly from multi-page PDF resumes.
+*   **Custom RAG Pipeline**: Splits long resumes into semantic chunks and indexes them locally using an in-memory TF-IDF vectorizer. It retrieves the top 3 most relevant segments matching the Job Description to feed as precise context to the LLM.
+*   **Groq API Integration**: Employs Groq's `llama3-8b-8192` model in strict JSON Mode to produce highly objective scores and recruiter feedback.
+*   **Local Fallback Engine**: Seamlessly falls back to our local hybrid scoring algorithm (60% skill recall + 40% contextual TF-IDF cosine similarity) if the Groq API key is not configured or if there is no internet access.
+*   **Robust Vocab Dictionary**: Curated database of **170+ tech and soft skills** spanning 13 domains to ensure strict word-boundary matching.
 
 ---
 
-## 🧠 System Architecture
+## 🧠 System & RAG Architecture
 
 ```mermaid
 graph TD
-    JD[Job Description Text] --> Parser[Document Parser]
-    Resume[Resume Text] --> Parser
+    UI[Interactive Web UI] -->|Upload PDFs & JD| Main[FastAPI main.py]
+    Main -->|Extract text| PDF[pdfplumber Parser]
+    PDF -->|Raw Text| RAG[RAG Pipeline]
     
-    Parser -->|Extract Skills & Experience| Features[Extracted Features]
+    RAG -->|1. Semantic Chunker| Chunks[Text Chunks]
+    Chunks -->|2. Local TF-IDF Index| Vectors[Chunk Vector Index]
+    Main -->|Job Description| Query[JD Query Vector]
     
-    Features --> SkillMatch[Skill Recall Engine 60%]
-    Features --> TFIDF[Custom TF-IDF & Cosine Similarity 40%]
+    Query -->|3. Similarity Match| Retriever[Retriever Engine]
+    Vectors --> Retriever
+    Retriever -->|4. Top-3 Context Chunks| Prompt[Augmented Prompt Context]
     
-    SkillMatch --> Scoring[Hybrid Scoring Integrator]
-    TFIDF --> Scoring
+    Prompt -->|5. Groq Llama-3 JSON Mode| LLM[Groq Evaluation]
+    LLM -->|Match Score, Skills, Explanation| FinalUI[UI Results Display]
     
-    Scoring --> Explanation[Dynamic Explanation Generator]
-    Scoring --> JSON[Structured Response JSON]
+    style RAG fill:#7c3aed,stroke:#a78bfa,stroke-width:2px,color:#fff
+    style LLM fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
 ```
 
 ---
 
 ## 📦 Tech Stack
 
-*   **Core API Framework**: FastAPI (v0.110+)
-*   **ASGI Web Server**: Uvicorn (v0.29+)
-*   **Data Validation**: Pydantic (v2.0+)
-*   **Mathematical Operations**: Standard `math`, `re`, and `collections` library (Zero external ML library dependencies for 100% portability)
+*   **Core Framework**: FastAPI (v0.110+) & Uvicorn (v0.29+)
+*   **PDF Extraction**: pdfplumber (v0.11+)
+*   **LLM API**: Groq SDK (v1.5.0+)
+*   **Data Validation & Env**: Pydantic (v2.0+) & python-dotenv
+*   **Vector Engine**: Custom Python-stdlib math matrices (Zero external ML library dependencies)
 
 ---
 
 ## 🚀 Setup & Installation
-
-Follow these quick commands to spin up the system in a virtual environment:
 
 ### 1. Clone & Navigate
 ```bash
@@ -67,9 +72,9 @@ cd Resume-Screener
 python -m venv venv
 
 # Activate virtual environment
-# On Windows (PowerShell):
+# Windows (PowerShell):
 .\venv\Scripts\activate
-# On macOS/Linux:
+# macOS/Linux:
 source venv/bin/activate
 ```
 
@@ -78,20 +83,27 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### 4. Set Up API Keys
+Create a `.env` file in the root directory (or rename `.env.example`):
+```env
+GROQ_API_KEY=gsk_your_key_here
+```
+> [!TIP]
+> Get a free API key at [console.groq.com](https://console.groq.com). If the key is left empty, the application will run locally using the offline fallback engine.
+
 ---
 
-## ▶️ Running the API
+## ▶️ Running the Application
 
-Start the local server with hot-reload enabled:
+Start the FastAPI server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
 Once running, access the services:
-*   **Interactive Swagger Docs**: 🌐 [http://localhost:8000/docs](http://localhost:8000/docs)
-*   **Alternative API Docs (ReDoc)**: 🌐 [http://localhost:8000/redoc](http://localhost:8000/redoc)
-*   **API Root / Health Check**: 🌐 [http://localhost:8000/](http://localhost:8000/)
+*   **Interactive Web UI**: 🌐 [http://localhost:8000/](http://localhost:8000/)
+*   **Interactive API Docs**: 🌐 [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
@@ -100,23 +112,19 @@ Once running, access the services:
 ### Screening Endpoint
 *   **Endpoint**: `/screen-resumes`
 *   **Method**: `POST`
-*   **Payload**: `application/json`
+*   **Payload**: `multipart/form-data`
 
-#### Request Payload Structure
-```json
-{
-  "job_description": "Looking for a Python backend engineer with FastAPI, PostgreSQL, and Docker experience. Strong knowledge of REST API architecture and Git is expected.",
-  "resumes": [
-    {
-      "name": "Backend_John",
-      "text": "Senior Developer. Specialized in Python, Django, FastAPI, and PostgreSQL. Deployed containers using Docker. Version control with Git."
-    },
-    {
-      "name": "Frontend_Sarah",
-      "text": "Frontend designer working with React, HTML, CSS, Tailwind CSS, JavaScript, and Figma."
-    }
-  ]
-}
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `job_description` | `string` (Form Field) | The job requirements text |
+| `resumes` | `file[]` (Upload files) | Array of PDF/TXT resumes |
+
+#### Example using curl
+```bash
+curl -X POST http://localhost:8000/screen-resumes \
+  -F "job_description=Python backend developer with FastAPI, PostgreSQL, and Docker." \
+  -F "resumes=@resume1.pdf" \
+  -F "resumes=@resume2.pdf"
 ```
 
 #### Sample Response (HTTP 200)
@@ -125,31 +133,11 @@ Once running, access the services:
   "total_resumes": 2,
   "results": [
     {
-      "name": "Backend_John",
-      "match_score": 60,
-      "matched_skills": [
-        "docker",
-        "fastapi",
-        "git",
-        "postgresql",
-        "python",
-        "rest"
-      ],
-      "missing_skills": [],
-      "explanation": "Good match with some skill gaps. The candidate matches 6 out of 6 identified skills (100% skill overlap). The resume indicates approximately 5 years of experience."
-    },
-    {
-      "name": "Frontend_Sarah",
-      "match_score": 6,
-      "matched_skills": [],
-      "missing_skills": [
-        "docker",
-        "fastapi",
-        "git",
-        "postgresql",
-        "python"
-      ],
-      "explanation": "Poor match — the candidate's profile does not align well with this role. The candidate matches 0 out of 5 identified skills (0% skill overlap)."
+      "name": "resume1.pdf",
+      "match_score": 85,
+      "matched_skills": ["docker", "fastapi", "postgresql", "python"],
+      "missing_skills": ["kubernetes"],
+      "explanation": "Strong candidate with direct FastAPI and PostgreSQL experience. Missing Kubernetes but has solid Docker foundation."
     }
   ]
 }
@@ -163,17 +151,20 @@ Once running, access the services:
 Resume-Screener/
 ├── app/
 │   ├── __init__.py          # Package initializer
-│   ├── main.py              # FastAPI app setup and routes
-│   ├── parser.py            # Custom skill & experience extractor
-│   ├── matcher.py           # Custom TF-IDF engine & similarity functions
+│   ├── main.py              # FastAPI app and static directory routing
+│   ├── parser.py            # pdfplumber text extraction + local parser
+│   ├── matcher.py           # Custom local TF-IDF matrices (fallback engine)
+│   ├── rag_pipeline.py      # Custom text chunker, local vector index, and retriever
+│   ├── groq_client.py       # Groq API Llama 3 interface (JSON Mode)
 │   ├── models.py            # Pydantic schema validation structures
-│   └── skills_db.py         # 170+ Curated technology vocabulary dictionary
-├── sample_resumes/          # Test profiles (Backend, Frontend, Data Science)
-│   ├── resume_backend.txt
-│   ├── resume_frontend.txt
-│   └── resume_datascience.txt
+│   ├── skills_db.py         # 170+ Curated technology vocabulary dictionary
+│   └── static/              # Glassmorphic UI frontend files
+│       ├── index.html
+│       ├── style.css
+│       └── script.js
 ├── requirements.txt         # Core packages list
-├── README.md                # Premium documentation (this file)
+├── README.md                # This file
+├── .env.example             # Environment template
 └── .gitignore               # Ignored version control patterns
 ```
 

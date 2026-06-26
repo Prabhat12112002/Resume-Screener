@@ -1,14 +1,29 @@
-"""
-Resume & Job Description Parser.
-
-Extracts skills and experience from plain text documents using
-the curated skills database for reliable matching.
-"""
-
+import io
 import re
 from dataclasses import dataclass, field
+import pdfplumber
 
 from app.skills_db import get_all_skills, get_multi_word_skills, get_single_word_skills
+
+
+def extract_text_from_pdf(pdf_bytes: bytes) -> str:
+    """
+    Extract text content from binary PDF data using pdfplumber.
+    
+    Loops through all pages, extracts visible text, and joins them.
+    """
+    text_content = []
+    try:
+        with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text_content.append(page_text)
+    except Exception as e:
+        # Fallback to empty string if parsing fails
+        return ""
+    
+    return "\n".join(text_content).strip()
 
 
 @dataclass
